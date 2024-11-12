@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabin&family=Raleway:wght@400;500&display=swap');
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: #f0f2f5;
+    font-family: 'Cabin', sans-serif;
+    padding: 15px;
+    margin-bottom: 50px;
+}
+
+.chat-header {
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+    padding: 10px 0;
+    background-color: #588ec0;
+    color: #fff;
+    border-radius: 10px;
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.chat-message {
+    margin-bottom: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+    word-wrap: break-word;
+}
+
+.sent {
+    background-color: #588ec0;
+    color: #fff;
+    margin-left: auto;
+}
+
+.received {
+    background-color: #f0f0f0;
+    color: #333;
+    margin-right: auto;
+}
+
+.chat-input {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.chat-input button {
+    padding: 1rem;
+    background-color: #588ec0;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.chat-input button:hover {
+    background-color: #4a7bb8;
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        padding: 10px;
+    }
+
+    .chat-message {
+        font-size: 0.875rem;
+    }
+}

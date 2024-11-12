@@ -1,0 +1,118 @@
+body {
+    background-color: white;
+}
+
+.container_pai {
+margin-bottom: 100px;
+}
+
+.container_home {
+    margin-top: 20px;
+}
+
+
+div.container_usuarios {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.container_usuarios {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    flex-wrap: wrap; /* Permite quebra de linha se necessário */
+    max-width: 800px; /* Defina uma largura máxima */
+    margin: 0 auto; /* Centraliza a div no contêiner pai */
+    padding: 20px; /* Espaçamento interno, se necessário */
+  
+}
+
+.container_usuarios > div {
+    display: flex;
+    flex-direction: column; /* Coloca a imagem e o nome em coluna */
+    align-items: center; /* Centraliza os itens dentro de cada div */
+}
+
+.container_usuarios img {
+width: 40%;
+border-radius: 50%;
+}
+
+.home-links {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.link-button {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #f0f2f5;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.link-button .icon {
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.link-button:hover {
+    background-color: #e0e4e8;
+}
+
+/*timelime */
+
+.timeline {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.timeline-item {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.timeline-content {
+    padding: 10px;
+}
+
+.timeline-content img {
+    width: 100%;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.timeline-content h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+}
+
+.timeline-content p {
+    color: #555;
+}
+
+.likes {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.like-button {
+    cursor: pointer;
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.like-count {
+    color: #888;
+}

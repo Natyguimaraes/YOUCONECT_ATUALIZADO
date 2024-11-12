@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Aboreto&family=Cabin&family=Inter&family=Raleway:wght@400;500&family=Rubik+Bubbles&display=swap');
+
+/* Estilos para o login */
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    font-family: 'Cabin', sans-serif;
+    padding-top: 15px;
+}
+
+#ponto-h1 {
+    color: #588ec0;
+    font-weight: bolder;
+    font-size: 60px;
+}
+
+.create-account {
+    text-align: center; /* Alinha o texto ao centro */
+    display: block; /* Faz com que o link ocupe toda a largura disponível */
+    margin-top: 1rem; /* Espaçamento superior */
+    font-size: 1rem; /* Tamanho da fonte */
+    color: #588ec0; /* Cor do texto */
+    text-decoration: none; /* Remove sublinhado padrão */
+    transition: color 0.3s; /* Efeito de transição na cor */
+}
+
+.create-account:hover {
+    color: #4a7bb8; /* Cor ao passar o mouse */
+}
+
+.content-wrapper {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px; /* Ajuste o máximo conforme necessário */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.vector-image {
+    display: block;
+    flex: 1; /* Ocupa o espaço disponível */
+    max-width: 50%; /* Ajuste a largura da imagem */
+    padding: 20px; /* Espaçamento interno */
+    box-sizing: border-box; /* Considera o padding dentro do tamanho total */
+}
+
+.vector-image img {
+    width: 100%; /* Garante que a imagem ocupe todo o espaço disponível */
+    height: auto; /* Mantém a proporção da imagem */
+}
+
+.container {
+    flex: 1; /* Ocupa o espaço disponível */
+    max-width: 50%; /* Ajuste a largura do container do formulário */
+    padding: 20px; /* Espaçamento interno */
+    box-sizing: border-box; /* Considera o padding dentro do tamanho total */
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-family: 'Raleway', sans-serif;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="password"] {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+button[type="submit"] {
+    background-color: #588ec0;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #4a7bb8;
+}
+
+a.forgot-password {
+    text-align: right;
+    display: block;
+    color: #588ec0;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a.forgot-password:hover {
+    color: #4a7bb8;
+}
+
+.linha {
+    width: 100%;
+    height: 1px;
+    background-color: rgba(98, 165, 198, 0.678);
+    margin: 1.5rem 0;
+}
+
+a#createconta.create-account {
+    background-color: #c268ce;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+a#createconta.create-account:hover {
+    background-color: #b057b9;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+        padding: 10px; /* Reduz o padding para melhorar o espaçamento em dispositivos móveis */
+    }
+
+    .vector-image,
+    .container {
+        max-width: 100%;
+        padding: 10px; /* Reduz o padding para melhorar o espaçamento em dispositivos móveis */
+    }
+
+    .vector-image {
+        display: none; /* Esconde a imagem em telas menores */
+    }
+
+    input[type="text"],
+    input[type="password"]
+     {
+        width: 300px; /* Ajusta o comprimento dos inputs e do botão */
+        padding: 1rem; /* Mantém o mesmo padding */
+    }
+}
+

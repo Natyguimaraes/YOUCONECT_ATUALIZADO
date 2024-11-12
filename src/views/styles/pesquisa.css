@@ -1,0 +1,46 @@
+/* src/styles/home.css */
+
+.container_pesquisa {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Cor de fundo */
+    border-radius: 8px; /* Bordas arredondadas */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza o conteúdo */
+}
+
+.container_pesquisa h1 {
+    margin-bottom: 20px; /* Espaço abaixo do título */
+    font-size: 1.8em; /* Tamanho do título */
+    color: #333; /* Cor do título */
+}
+
+.container_pesquisa input {
+    width: 100%; /* Largura total */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #ccc; /* Borda */
+    border-radius: 4px; /* Bordas arredondadas */
+    margin-bottom: 20px; /* Espaço abaixo do campo de pesquisa */
+    font-size: 1em; /* Tamanho da fonte */
+}
+
+.container_pesquisa .fa-search {
+    position: absolute; /* Posiciona o ícone em relação ao input */
+    right: 20px; /* Ajusta a posição do ícone */
+    top: 50%; /* Centraliza verticalmente */
+    transform: translateY(-50%); /* Ajusta o posicionamento */
+    color: #aaa; /* Cor do ícone */
+}
+
+.container_pesquisa p {
+    color: #666; /* Cor do texto */
+    font-size: 1em; /* Tamanho do texto */
+}
+
+.usuarios-list {
+    margin-top: 20px; /* Espaço acima da lista */
+    width: 100%; /* Largura total */
+}

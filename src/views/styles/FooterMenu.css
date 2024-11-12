@@ -1,0 +1,24 @@
+/* src/components/FooterMenu.css */
+.footer-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    right: 0;
+    height: 50px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+}
+
+.footer-menu a {
+    color: #000;
+    font-size: 24px;
+}
+
+.footer-menu a:hover {
+    color: #007bff;
+}
