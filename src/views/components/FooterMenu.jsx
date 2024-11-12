@@ -11,7 +11,7 @@ function FooterMenu() {
             <Link to="/home">
                 <FaHome />
             </Link>
-            <Link to="/pesquisa">
+            <Link to="/CadastroProjeto">
                 <FaSearch />
             </Link>
             <Link to="/chat">

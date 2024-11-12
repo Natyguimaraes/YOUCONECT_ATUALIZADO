@@ -1,3 +1,4 @@
+import React from 'react';
 import '../styles/cadastre.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -89,6 +90,7 @@ function Cadastre() {
         <div className="cadastre-container">
             <form onSubmit={handleSubmit} className="cadastre-form">
                 <h1>Criar uma conta</h1>
+                
                 <input
                     type="text"
                     name="nomeCompleto"
