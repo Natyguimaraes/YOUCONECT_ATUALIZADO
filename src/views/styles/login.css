@@ -57,7 +57,7 @@
     height: auto; /* Mantém a proporção da imagem */
 }
 
-.container {
+.container_login {
     flex: 1; /* Ocupa o espaço disponível */
     max-width: 50%; /* Ajuste a largura do container do formulário */
     padding: 20px; /* Espaçamento interno */
@@ -145,7 +145,7 @@ a#createconta.create-account:hover {
     }
 
     .vector-image,
-    .container {
+    .container_login {
         max-width: 100%;
         padding: 10px; /* Reduz o padding para melhorar o espaçamento em dispositivos móveis */
     }

@@ -49,7 +49,7 @@ function Login() {
         <div className="vector-image">
           <img src="vector_login.png" alt="Login Vector" />
         </div>
-        <div className="container">
+        <div className="container_login">
           <div className="login-form">
             <h1>Faça seu login<b id="ponto-h1">.</b></h1>
             <form onSubmit={handleSubmit}>
