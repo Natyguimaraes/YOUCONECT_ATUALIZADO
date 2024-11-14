@@ -17,8 +17,8 @@ app.delete('/projeto/:id', deleteProjeto);
 
 
 // Inicia o servidor
-app.listen(3000, () => {
-    console.log('Servidor rodando com sucesso na porta 3000');
+app.listen(3001, () => {
+    console.log('Servidor rodando com sucesso na porta 3001');
 });
 
 export default app;

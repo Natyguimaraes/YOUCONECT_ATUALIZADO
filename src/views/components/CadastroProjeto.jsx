@@ -1,18 +1,41 @@
 import React, { useState } from 'react';
 import '../styles/CadastroProjeto.css';
 import FooterMenu from './FooterMenu';
+import { useNavigate } from 'react-router-dom';
 
 function CadastroProj() {
-  const [capaProjeto, setCapaProjeto] = useState('/capa.png');  // Caminho da imagem de capa
-  const [fotoPerfil, setFotoPerfil] = useState('/perfil.png');  // Caminho da imagem de perfil
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    capa_projeto: '/capa.png',
+    logotipo_projeto: '/perfil.png',
+    nome_projeto: '',
+    curso_projeto: '',
+    data_inicio: '',
+    equipe: '',
+    arquivo: '',
+    descricao: '',
+  });
+
+  const [errors, setErrors] = useState({});
   const [showFileInput, setShowFileInput] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleCapaChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setCapaProjeto(reader.result);
+        setFormData({
+          ...formData,
+          capa_projeto: reader.result,
+        });
       };
       reader.readAsDataURL(file);
     }
@@ -23,39 +46,92 @@ function CadastroProj() {
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
-        setFotoPerfil(reader.result);
+        setFormData({
+          ...formData,
+          logotipo_projeto: reader.result,
+        });
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleAddProject = () => {
-    setShowFileInput(!showFileInput);
+  const handleAddProject = (e) => {
+    const file = e.target.files[0]; // Pegando o arquivo selecionado
+    if (file) {
+      setFormData({
+        ...formData,
+        arquivo: file,  // Armazenando o arquivo no estado
+      });
+    }
+  };
+  
+  const validateForm = () => {
+    let formErrors = {};
+
+    if (!formData.nome_projeto) formErrors.nome_projeto = 'Nome do projeto é obrigatório';
+    if (!formData.curso_projeto) formErrors.curso_projeto = 'Curso é obrigatório';
+    if (!formData.data_inicio) formErrors.data_inicio = 'Data de início é obrigatória';
+    if (!formData.equipe) formErrors.equipe = 'Nome da equipe é obrigatório';
+    if (!formData.descricao) formErrors.descricao = 'Descrição do projeto é obrigatória';
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      try {
+        console.log("Dados a serem enviados:", formData);
+
+        const response = await fetch('http://localhost:3001/projeto', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro ao enviar a solicitação: ${response.status}`);
+        }
+
+        const json = await response.json();
+        console.log(json);
+
+        // Após a submissão bem-sucedida do formulário, navegue para a página inicial
+        navigate('/home');
+      } catch (err) {
+        console.error("Erro ao enviar os dados", err);
+      }
+    }
   };
 
   return (
     <div className="container">
-    
-      <h2>Cadastre seu Projeto</h2>
+      <form onSubmit={handleSubmit} className="form">
+        <h2>Cadastre seu Projeto</h2>
 
-      <div className="capa-projeto">
-        <div className="capa-container">
-          <img src={capaProjeto} alt="Capa do Projeto" />
-          <div className="capa-texto">Capa do Projeto</div>
-          <label className="upload-button-capa">
-            +
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handleCapaChange} 
-            />
-          </label>
+        {/* Capa do Projeto */}
+        <div className="capa-projeto">
+          <div className="capa-container">
+            <img src={formData.capa_projeto} alt="Capa do Projeto" />
+            <div className="capa-texto">Capa do Projeto</div>
+            <label className="upload-button-capa">
+              +
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={handleCapaChange} 
+              />
+            </label>
+          </div>
         </div>
-      </div>
 
-      <div className="form">
+        {/* Logotipo do Projeto */}
         <div className="perfil">
-          <img src={fotoPerfil} alt="Foto de Perfil" />
+          <img src={formData.logotipo_projeto} alt="Foto de Perfil" />
           <label className="upload-button-perfil">
             +
             <input 
@@ -66,15 +142,25 @@ function CadastroProj() {
           </label>
         </div>
 
+        {/* Campos do Formulário */}
         <div className="form-grid">
           <div className="campo">
-            <label>Nome do Projeto</label>
-            <input type="text" placeholder="Nome do Projeto" />
+            <input
+              type="text"
+              name="nome_projeto"
+              placeholder="Nome do Projeto"
+              value={formData.nome_projeto}
+              onChange={handleChange}
+            />
+            {errors.nome_projeto && <span className="error">{errors.nome_projeto}</span>}
           </div>
 
           <div className="campo">
-            <label>Curso</label>
-            <select>
+            <select
+              name="curso_projeto"
+              value={formData.curso_projeto}
+              onChange={handleChange}
+            >
               <option value="">Selecione o curso</option>
               <option value="Administração">Administração</option>
               <option value="Automação industrial">Automação industrial</option>
@@ -96,37 +182,56 @@ function CadastroProj() {
               <option value="Refrigeração e climatização">Refrigeração e climatização</option>
               <option value="Segurança do trabalho">Segurança do trabalho</option>
             </select>
+            {errors.curso_projeto && <span className="error">{errors.curso_projeto}</span>}
           </div>
 
           <div className="campo">
-            <label>Data de Início</label>
-            <input type="date" />
+            <input
+              type="date"
+              name="data_inicio"
+              value={formData.data_inicio}
+              onChange={handleChange}
+            />
+            {errors.data_inicio && <span className="error">{errors.data_inicio}</span>}
           </div>
 
           <div className="campo">
-            <label>Equipe</label>
-            <input type="text" placeholder="Nome da Equipe" />
+            <input
+              type="text"
+              name="equipe"
+              placeholder="Nome da Equipe"
+              value={formData.equipe}
+              onChange={handleChange}
+            />
+            {errors.equipe && <span className="error">{errors.equipe}</span>}
           </div>
         </div>
-      </div>
 
-      <div className="botao-adicionar-projeto" onClick={handleAddProject}>
-        <img src="/adicionarProjeto.png" alt="Adicionar Projeto" />
-      </div>
-
-      {showFileInput && (
+        {/* Campo de Arquivo - Agora visível sempre */}
         <div className="campo-arquivo">
           <label>Anexar Arquivo</label>
-          <input type="file" accept=".pdf, .doc, .docx, .ppt, .pptx, .txt" />
+          <input
+            type="file"
+            accept=".pdf, .doc, .docx, .ppt, .pptx, .txt"
+            onChange={handleAddProject}
+          />
         </div>
-      )}
 
-      <div className="descricao">
-        <label>Descrição</label>
-        <textarea placeholder="Descreva seu projeto"></textarea>
-      </div>
+        {/* Descrição do Projeto */}
+        <div className="descricao">
+          <textarea
+            name="descricao"
+            placeholder="Descreva seu projeto"
+            value={formData.descricao}
+            onChange={handleChange}
+          ></textarea>
+          {errors.descricao && <span className="error">{errors.descricao}</span>}
+        </div>
 
-      <button className="botao-salvar">Salvar</button>
+        <button type="submit" className="botao-salvar">
+          Salvar
+        </button>
+      </form>
 
       <FooterMenu />
     </div>
@@ -134,3 +239,4 @@ function CadastroProj() {
 }
 
 export default CadastroProj;
+
