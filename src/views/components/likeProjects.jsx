@@ -10,8 +10,8 @@ const LikeProjetos = () => {
     };
 
     const projetos = [
-        { id: 1, nome: "Projeto 1", descricao: "Descrição do projeto 1.", imgSrc: "./imgyou.png" },
-        { id: 2, nome: "Projeto 2", descricao: "Descrição do projeto 2.", imgSrc: "./imgyou.png" },
+        { id: 1, nome: "YOUCONECT", descricao: "Rede social desenvolvida para alunos do senai.", imgSrc: "./YOUCONECTSENAI.png" },
+        { id: 2, nome: "STUDENT_PROJECT", descricao: "Aplicativo para estudantes", imgSrc: "./imgyou.png" },
         // Adicione mais projetos conforme necessário
     ];
 

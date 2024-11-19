@@ -6,6 +6,7 @@ import Cadastre from './views/components/cadastre'; // Supondo que você tenha u
 import Home from './views/components/home';
 import Chat from './views/components/chat';
 import CadastroProj from './views/components/CadastroProjeto';
+import Perfil from './views/components/profile';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/CadastroProjeto" element={<CadastroProj />}/>
           <Route path="/chat" element={<Chat />} />
+          <Route path="/profile" element={<Perfil />} />
         </Routes>
       </div>
     </Router>
