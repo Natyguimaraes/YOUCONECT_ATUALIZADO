@@ -1,8 +1,11 @@
 import connection from '../database/db.js';
 
 export function create(capa_projeto, logotipo_projeto, nome_projeto, curso_projeto, data_inicio, equipe, arquivo, descricao, callback) {
+    // Se o arquivo estiver vazio ou indefinido, define como NULL
+    const arquivoValue = (arquivo && Object.keys(arquivo).length > 0) ? arquivo : null;
+
     const query = 'INSERT INTO projeto (capa_projeto, logotipo_projeto, nome_projeto, curso_projeto, data_inicio, equipe, arquivo, descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    connection.query(query, [capa_projeto, logotipo_projeto, nome_projeto, curso_projeto, data_inicio, equipe, arquivo, descricao], callback);
+    connection.query(query, [capa_projeto, logotipo_projeto, nome_projeto, curso_projeto, data_inicio, equipe, arquivoValue, descricao], callback);
 }
 
 export function read(callback) {

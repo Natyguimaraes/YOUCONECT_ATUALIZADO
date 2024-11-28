@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllProjeto, getProjetoF, createProjeto, updateProjeto, deleteProjeto } from '../controllers/projControler.js';
+import pool from './db';  // Assumindo que você tem um pool de conexões com o banco de dados
 
 // Obtendo o diretório atual usando import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -47,6 +48,32 @@ app.use(cors({
 // Rotas
 app.get('/projeto', getAllProjeto);
 app.get('/projeto/:id', getProjetoF);
+app.get('/logotipo_projeto/:id', async (req, res) => {
+  const logotipo_projetoId = req.params.id;
+
+  const logotipo_projeto = await getLogotipoFromDatabase(logotipo_projetoId); 
+  try {
+    // Recupera o logotipo do banco de dados usando o ID
+    const result = await pool.query('SELECT logotipo_projeto FROM projetos WHERE id = $1', [logotipo_projetoId]);
+
+    if (result.rows.length > 0) {
+      const logotipo = result.rows[0].logotipo_projeto;
+      
+      if (logotipo) {
+        // Se a imagem existir no banco, envie como resposta
+        res.setHeader('Content-Type', 'image/jpeg'); // Supondo que seja um JPEG, ajuste conforme necessário
+        res.send(logotipo); // Envia o blob da imagem como resposta
+      } else {
+        res.status(404).send('Imagem não encontrada');
+      }
+    } else {
+      res.status(404).send('Projeto não encontrado');
+    }
+  } catch (error) {
+    console.error('Erro ao recuperar imagem:', error);
+    res.status(500).send('Erro ao recuperar imagem');
+  }
+});
 
 // Rota para criar um novo projeto com upload de arquivos
 app.post('/projeto', upload.fields([
@@ -64,3 +91,4 @@ app.listen(3001, () => {
 });
 
 export default app;
+

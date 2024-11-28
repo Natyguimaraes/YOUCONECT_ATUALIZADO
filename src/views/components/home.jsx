@@ -1,11 +1,13 @@
+// Home.js
 import { useEffect, useState } from "react";
 import "../styles/home.css";
 import FooterMenu from './FooterMenu';
-import Usuarios from "./usuarios"; // Certifique-se de que o caminho está correto
-import LikeProjetos from "./likeProjects"; // Importar o componente correto
+import Usuarios from "./usuarios";
+import LikeProjetos from "./likeProjects";
 
 function Home() {
     const [usuarios, setUsuarios] = useState([]);
+    const [projetos, setProjetos] = useState([]);
 
     useEffect(() => {
         const fetchUsuarios = async () => {
@@ -15,7 +17,7 @@ function Home() {
                     throw new Error(`Erro ao buscar usuários: ${response.status}`);
                 }
                 const data = await response.json();
-                console.log(data); // Verifique o retorno
+                console.log(data);
 
                 if (Array.isArray(data)) {
                     setUsuarios(data);
@@ -30,14 +32,27 @@ function Home() {
         fetchUsuarios();
     }, []);
 
+    useEffect(() => {
+        const fetchProjetos = async () => {
+            try {
+                const response = await fetch('http://localhost:3001/projeto');
+                const data = await response.json();
+                setProjetos(data); // Define os projetos no estado
+            } catch (err) {
+                console.error('Erro ao carregar projetos:', err);
+            }
+        };
+        fetchProjetos();
+    }, []);
+
     return (
         <div className="container_pai">
             <div className="container_home">
                 <h1>Projetos</h1>
-                <LikeProjetos /> {/* Renderiza o componente de projetos */}
-                
+                <LikeProjetos projetos={projetos} /> {/* Passando 'projetos' corretamente para o LikeProjetos */}
+
                 <h1>Usuários Sugeridos</h1>
-                <Usuarios usuarios={usuarios} />  
+                <Usuarios usuarios={usuarios} />
             </div>
             <FooterMenu />
         </div>
@@ -45,3 +60,4 @@ function Home() {
 }
 
 export default Home;
+
