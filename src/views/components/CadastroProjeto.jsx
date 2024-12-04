@@ -7,38 +7,21 @@ function CadastroProj() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    capa_projeto: '/capa.png',
-    logotipo_projeto: '/perfil.png',
+    logotipo_projeto: '/perfil.png',  // Inicializando com um valor padrão
     nome_projeto: '',
     curso_projeto: '',
     data_inicio: '',
     equipe: '',
-    arquivo: '',
     descricao: '',
   });
 
   const [errors, setErrors] = useState({});
-  const [showFileInput, setShowFileInput] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const handleCapaChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData({
-          ...formData,
-          capa_projeto: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
   };
 
   const handlePerfilChange = (e) => {
@@ -48,26 +31,17 @@ function CadastroProj() {
       reader.onload = () => {
         setFormData({
           ...formData,
-          logotipo_projeto: reader.result,
+          logotipo_projeto: reader.result,  // Armazenando imagem como Base64
         });
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file);  // Converte imagem para Base64
     }
   };
 
-  const handleAddProject = (e) => {
-    const file = e.target.files[0]; // Pegando o arquivo selecionado
-    if (file) {
-      setFormData({
-        ...formData,
-        arquivo: file,  // Armazenando o arquivo no estado
-      });
-    }
-  };
-  
   const validateForm = () => {
     let formErrors = {};
 
+    // Validação dos campos obrigatórios
     if (!formData.nome_projeto) formErrors.nome_projeto = 'Nome do projeto é obrigatório';
     if (!formData.curso_projeto) formErrors.curso_projeto = 'Curso é obrigatório';
     if (!formData.data_inicio) formErrors.data_inicio = 'Data de início é obrigatória';
@@ -90,7 +64,7 @@ function CadastroProj() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(formData),  // Envia os dados com a imagem em Base64
         });
 
         if (!response.ok) {
@@ -113,25 +87,9 @@ function CadastroProj() {
       <form onSubmit={handleSubmit} className="form">
         <h2>Cadastre seu Projeto</h2>
 
-        {/* Capa do Projeto */}
-        <div className="capa-projeto">
-          <div className="capa-container">
-            <img src={formData.capa_projeto} alt="Capa do Projeto" />
-            <div className="capa-texto">Capa do Projeto</div>
-            <label className="upload-button-capa">
-              +
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={handleCapaChange} 
-              />
-            </label>
-          </div>
-        </div>
-
         {/* Logotipo do Projeto */}
         <div className="perfil">
-          <img src={formData.logotipo_projeto} alt="Foto de Perfil" />
+          <img src={formData.logotipo_projeto} alt="Logotipo do Projeto" />
           <label className="upload-button-perfil">
             +
             <input 
@@ -207,16 +165,6 @@ function CadastroProj() {
           </div>
         </div>
 
-        {/* Campo de Arquivo - Agora visível sempre */}
-        <div className="campo-arquivo">
-          <label>Anexar Arquivo</label>
-          <input
-            type="file"
-            accept=".pdf, .doc, .docx, .ppt, .pptx, .txt"
-            onChange={handleAddProject}
-          />
-        </div>
-
         {/* Descrição do Projeto */}
         <div className="descricao">
           <textarea
@@ -239,4 +187,5 @@ function CadastroProj() {
 }
 
 export default CadastroProj;
+
 
