@@ -1,6 +1,16 @@
-// Projetos.js
 import React from 'react';
 import "../styles/home.css";
+
+// Componente de Imagem com fallback
+function ImageWithFallback({ src, alt }) {
+  return (
+    <img
+      src={src}
+      alt={alt}
+      onError={(e) => e.target.src = './imgperfil.jpg'} // Exibe a imagem padrão se houver erro
+    />
+  );
+}
 
 // Componente Projetos
 function Projetos({ projetos }) {
@@ -12,7 +22,11 @@ function Projetos({ projetos }) {
       {projetosParaExibir.length > 0 ? (
         projetosParaExibir.map((projeto, index) => (
           <div key={index} className="projeto-item">
-            <img src={projeto.logotipo_projeto || "./imgperfil.jpg"} alt={projeto.nome_projeto} />
+            {/* Exibe o logotipo, com fallback para uma imagem padrão */}
+            <ImageWithFallback 
+              src={projeto.logotipo_projeto || './imgperfil.jpg'} // Usando o link da imagem ou a imagem padrão
+              alt={projeto.nome_projeto}
+            />
             <p>{projeto.nome_projeto}</p>
             <p>{projeto.descricao}</p>
           </div>
@@ -25,4 +39,3 @@ function Projetos({ projetos }) {
 }
 
 export default Projetos;
-

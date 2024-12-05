@@ -1,4 +1,3 @@
-// LikeProjetos.js
 import React, { useState } from 'react';
 import "../styles/home.css";
 
@@ -18,7 +17,7 @@ const LikeProjetos = ({ projetos }) => {
                     <div className="timeline-content">
                         {/* Exibindo a imagem do logotipo do projeto */}
                         <img
-                            src={`http://localhost:3001/logotipo_projeto/${projeto.id}`} // A URL que vai buscar a imagem do backend
+                            src={projeto.logotipo_projeto} // Usando diretamente o link da imagem
                             alt={projeto.nome_projeto}
                             onError={(e) => e.target.src = './imgperfil.jpg'} // Caso a imagem não seja encontrada
                         />
@@ -36,4 +35,3 @@ const LikeProjetos = ({ projetos }) => {
 };
 
 export default LikeProjetos;
-
