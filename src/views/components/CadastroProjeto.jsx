@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/CadastroProjeto.css'; // Certifique-se de que o estilo do campo de link está configurado corretamente.
+import '../styles/CadastroProjeto.css'; 
 import FooterMenu from './FooterMenu';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function CadastroProj() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    logotipo_projeto: '', // Agora esperamos um link de imagem
+    logotipo_projeto: '', 
     nome_projeto: '',
     curso_projeto: '',
     data_inicio: '',
@@ -24,12 +24,12 @@ function CadastroProj() {
     });
   };
 
-  // Atualizado para aceitar e validar link
+
   const handleLogotipoChange = (e) => {
-    const link = e.target.value; // O valor inserido no campo
+    const link = e.target.value; 
     setFormData({
       ...formData,
-      logotipo_projeto: link, // Armazenamos o link no estado
+      logotipo_projeto: link,
     });
   };
 
@@ -68,7 +68,7 @@ function CadastroProj() {
         const json = await response.json();
         console.log(json);
 
-        // Após a submissão bem-sucedida do formulário, navegue para a página inicial
+       
         navigate('/home');
       } catch (err) {
         console.error("Erro ao enviar os dados", err);
@@ -81,7 +81,6 @@ function CadastroProj() {
       <form onSubmit={handleSubmit} className="form">
         <h2>Cadastre seu Projeto</h2>
 
-        {/* Logotipo do Projeto */}
         <div className="perfil">
           {/* Exibe o logotipo, se o link for válido */}
           {formData.logotipo_projeto && (

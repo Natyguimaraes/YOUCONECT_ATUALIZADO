@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "../styles/home.css";
 
 const LikeProjetos = ({ projetos }) => {
-    const [likes, setLikes] = useState(projetos.map(() => 0)); // Inicializa o número de curtidas para cada projeto
+    // Inicializa o número de curtidas com base nos projetos
+    const [likes, setLikes] = useState(projetos.map(() => 0));
 
-    const handleLike = (index) => { // Incrementa o número de curtidas
-        const newLikes = [...likes];
-        newLikes[index] += 1;
-        setLikes(newLikes);
+    useEffect(() => {
+        // Reseta o estado de curtidas quando os projetos mudam
+        setLikes(projetos.map(() => 0));
+    }, [projetos]);
+
+    const handleLike = (index) => {
+        // Atualiza o estado de likes de forma eficiente
+        setLikes((prevLikes) => {
+            const newLikes = [...prevLikes];
+            newLikes[index] += 1;
+            return newLikes;
+        });
     };
 
     return (
@@ -15,17 +24,16 @@ const LikeProjetos = ({ projetos }) => {
             {projetos.map((projeto, index) => (
                 <div className="timeline-item" key={projeto.id}>
                     <div className="timeline-content">
-                        {/* Exibindo a imagem do logotipo do projeto */}
                         <img
-                            src={projeto.logotipo_projeto} // Usando diretamente o link da imagem
+                            src={projeto.logotipo_projeto}
                             alt={projeto.nome_projeto}
-                            onError={(e) => e.target.src = './imgperfil.jpg'} // Caso a imagem não seja encontrada
+                            onError={(e) => e.target.src = './imgperfil.jpg'} 
                         />
                         <h2>{projeto.nome_projeto}</h2>
                         <p>{projeto.descricao}</p>
                         <div className="likes">
-                            <span className="like-button" onClick={() => handleLike(index)}>💙</span>
-                            <span className="like-count">{likes[index]} conectes</span>
+                            <span className="like-button" onClick={() => handleLike(index)}>😍</span>
+                            <span className="like-count">{likes[index]} conectes </span>
                         </div>
                     </div>
                 </div>
@@ -35,3 +43,5 @@ const LikeProjetos = ({ projetos }) => {
 };
 
 export default LikeProjetos;
+
+

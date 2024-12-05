@@ -1,4 +1,4 @@
-import { create } from '../models/projModel.js'; // Certifique-se de que está importando corretamente a função 'create'
+import { create, read, update, deleteProj } from '../models/projModel.js'; // Certifique-se de que está importando corretamente a função 'create'
 
 // Realizando insert (create)
 export async function createProjeto(req, res) {
