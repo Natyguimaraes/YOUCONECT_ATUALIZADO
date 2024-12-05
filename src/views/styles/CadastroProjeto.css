@@ -257,3 +257,18 @@
     }
   }
   
+  .input-url {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .logotipo-img {
+    width: 100px; /* Ajuste o tamanho conforme necessário */
+    height: 100px;
+    object-fit: cover;
+    margin-top: 10px;
+  }
+  

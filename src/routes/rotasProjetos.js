@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllProjeto, getProjetoF, createProjeto, updateProjeto, deleteProjeto } from '../controllers/projControler.js';
-import pool from '../database/db.js';  // Importando o pool de conexões MySQL
+
 
 // Obtendo o diretório atual usando import.meta.url
 const __filename = fileURLToPath(import.meta.url);
@@ -18,11 +18,11 @@ const uploadDir = path.join(__dirname, '..', 'uploads');
 
 // Verifica se o diretório de uploads existe e cria se não existir
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log(`Diretório de uploads criado em: ${uploadDir}`);
+    fs.mkdirSync(uploadDir, { recursive: true });
+    console.log(`Diretório de uploads criado em: ${uploadDir}`);
 }
 
-// Configuração do multer para upload de arquivos (somente para o logotipo)
+// Configuração do multer para upload de arquivos
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadDir); // Caminho onde os arquivos serão armazenados
@@ -49,42 +49,13 @@ app.use(cors({
 app.get('/projeto', getAllProjeto);
 app.get('/projeto/:id', getProjetoF);
 
-// Rota para retornar o logotipo do projeto
-app.get('/logotipo_projeto/:id', async (req, res) => {
-  const logotipo_projetoId = req.params.id;
 
-  try {
-    // Recupera o logotipo do banco de dados usando o ID
-    pool.query('SELECT logotipo_projeto FROM projetos WHERE id = ?', [logotipo_projetoId], (err, results) => {
-      if (err) {
-        console.error('Erro ao recuperar imagem:', err);
-        return res.status(500).send('Erro ao recuperar imagem');
-      }
+// Rota para criar um novo projeto com upload de arquivos
+app.post('/projeto', upload.fields([
 
-      if (results.length > 0) {
-        const logotipo = results[0].logotipo_projeto;
+  { name: 'logotipo_projeto', maxCount: 1 },  // Logotipo do projeto
+]), createProjeto);
 
-        if (logotipo) {
-          // Se a imagem existir no banco, envie como resposta
-          res.setHeader('Content-Type', 'image/jpeg'); // Supondo que seja um JPEG, ajuste conforme necessário
-          res.send(logotipo); // Envia o arquivo de imagem como resposta
-        } else {
-          res.status(404).send('Imagem não encontrada');
-        }
-      } else {
-        res.status(404).send('Projeto não encontrado');
-      }
-    });
-  } catch (error) {
-    console.error('Erro ao recuperar imagem:', error);
-    res.status(500).send('Erro ao recuperar imagem');
-  }
-});
-
-// Rota para criar um novo projeto com o upload do logotipo
-app.post('/projeto', upload.single('logotipo_projeto'), createProjeto);
-
-// Atualizar e deletar projeto
 app.put('/projeto/:id', updateProjeto);
 app.delete('/projeto/:id', deleteProjeto);
 
@@ -94,7 +65,5 @@ app.listen(3001, () => {
 });
 
 export default app;
-
-
 
 

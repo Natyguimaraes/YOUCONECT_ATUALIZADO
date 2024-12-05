@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/CadastroProjeto.css';
+import '../styles/CadastroProjeto.css'; // Certifique-se de que o estilo do campo de link está configurado corretamente.
 import FooterMenu from './FooterMenu';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,7 +7,7 @@ function CadastroProj() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    logotipo_projeto: '/perfil.png',  // Inicializando com um valor padrão
+    logotipo_projeto: '', // Agora esperamos um link de imagem
     nome_projeto: '',
     curso_projeto: '',
     data_inicio: '',
@@ -24,24 +24,18 @@ function CadastroProj() {
     });
   };
 
-  const handlePerfilChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData({
-          ...formData,
-          logotipo_projeto: reader.result,  // Armazenando imagem como Base64
-        });
-      };
-      reader.readAsDataURL(file);  // Converte imagem para Base64
-    }
+  // Atualizado para aceitar e validar link
+  const handleLogotipoChange = (e) => {
+    const link = e.target.value; // O valor inserido no campo
+    setFormData({
+      ...formData,
+      logotipo_projeto: link, // Armazenamos o link no estado
+    });
   };
 
   const validateForm = () => {
     let formErrors = {};
 
-    // Validação dos campos obrigatórios
     if (!formData.nome_projeto) formErrors.nome_projeto = 'Nome do projeto é obrigatório';
     if (!formData.curso_projeto) formErrors.curso_projeto = 'Curso é obrigatório';
     if (!formData.data_inicio) formErrors.data_inicio = 'Data de início é obrigatória';
@@ -64,7 +58,7 @@ function CadastroProj() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(formData),  // Envia os dados com a imagem em Base64
+          body: JSON.stringify(formData),
         });
 
         if (!response.ok) {
@@ -89,13 +83,18 @@ function CadastroProj() {
 
         {/* Logotipo do Projeto */}
         <div className="perfil">
-          <img src={formData.logotipo_projeto} alt="Logotipo do Projeto" />
-          <label className="upload-button-perfil">
-            +
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handlePerfilChange} 
+          {/* Exibe o logotipo, se o link for válido */}
+          {formData.logotipo_projeto && (
+            <img src={formData.logotipo_projeto} alt="Logotipo do Projeto" className="logotipo-img" />
+          )}
+          <label>
+            Inserir URL do Logotipo
+            <input
+              type="text" // Agora é um campo de texto para inserir o link da imagem
+              placeholder="Insira o link do logotipo"
+              value={formData.logotipo_projeto}
+              onChange={handleLogotipoChange} // Lida com mudanças no campo
+              className="input-url"
             />
           </label>
         </div>
@@ -187,5 +186,3 @@ function CadastroProj() {
 }
 
 export default CadastroProj;
-
-
